@@ -64,13 +64,18 @@ function App() {
     setPrediction(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/predict', {
+      const api_url = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      const response = await axios.post(`${api_url}/predict`, {
         text: text,
       });
       setPrediction(response.data);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.detail || "System Link Failure. Retrying...");
+      if (err.message === "Network Error") {
+        setError("Inference Engine is waking up (Render Free Tier). Please wait 30 seconds and try again.");
+      } else {
+        setError(err.response?.data?.detail || "System Link Failure. Internal neural core unreachable.");
+      }
     } finally {
       setLoading(false);
     }
