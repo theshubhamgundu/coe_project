@@ -73,8 +73,10 @@ def extract_features(df, text_processor):
     print(f"   ✓ Location features: {len(location_features.columns)} features")
     
     # Extract sentiment features
+    sentiment_data = df[['sentiment_polarity', 'sentiment_subjectivity']].copy()
+    sentiment_data.columns = ['polarity', 'subjectivity']
     sentiment_df = FeatureEngineer.extract_sentiment_features(
-        df[['sentiment_polarity', 'sentiment_subjectivity']].apply(lambda x: dict(x), axis=1)
+        sentiment_data.apply(lambda x: dict(x), axis=1)
     )
     print(f"   ✓ Sentiment features: {len(sentiment_df.columns)} features")
     
