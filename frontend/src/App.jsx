@@ -147,19 +147,19 @@ function App() {
             className="response-view"
           >
             <div className="result-row">
-              <span className="label">Category Prediction</span>
+              <span className="label">CATEGORY</span>
               <span className="value" style={{ letterSpacing: '0px' }}>{prediction.predicted_category}</span>
             </div>
 
             <div className="result-row">
-              <span className="label">Urgency Score</span>
+              <span className="label">PRIORITY</span>
               <span className={`value priority-${prediction.priority_level}`}>
                 {prediction.priority_level}
               </span>
             </div>
 
             <div className="result-row">
-              <span className="label">Confidence Vector</span>
+              <span className="label">CONFIDENCE</span>
               <span className="value">{(prediction.category_confidence * 100).toFixed(2)}%</span>
             </div>
 
