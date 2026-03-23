@@ -61,10 +61,10 @@ function App() {
 
     setLoading(true);
     setError(null);
-    setPrediction(null);
-
     try {
-      const api_url = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      let api_url = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      // Ensure no double slashes cause a 404 error
+      api_url = api_url.replace(/\/$/, "");
       const response = await axios.post(`${api_url}/predict`, {
         text: text,
       });
