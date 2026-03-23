@@ -62,9 +62,16 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      let api_url = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      let api_url = import.meta.env.VITE_API_URL || "https://coeproject-production.up.railway.app";
+      
+      // Auto-correct missing 'https://' from environment variables
+      if (api_url && !api_url.startsWith('http')) {
+        api_url = `https://${api_url}`;
+      }
+      
       // Ensure no double slashes cause a 404 error
       api_url = api_url.replace(/\/$/, "");
+
       const response = await axios.post(`${api_url}/predict`, {
         text: text,
       });
